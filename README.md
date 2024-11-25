@@ -1,8 +1,7 @@
 # AR4 ROS Driver
 
 ROS 2 driver of the AR4 robot arm from [Annin Robotics](https://www.anninrobotics.com).
-Tested with ROS 2 Iron on Ubuntu 22.04. Also supports Jazzy using
-[this branch](https://github.com/ycheng517/ar4_ros_driver/tree/feature/jazzy)
+Tested with ROS 2 Iron on Ubuntu 22.04.
 
 **Supports:**
 
@@ -77,12 +76,13 @@ procedure as specified in [AR4 Robot Setup](https://www.youtube.com/watch?v=OL6l
 ### [Optional] Running in Docker Container
 
 A docker container and run script has been provided that can be used to run the
-robot and any GUI programs. It requires [rocker](https://github.com/osrf/rocker) to be installed. Then you can start the docker container with:
+robot and any GUI programs. It requires an NVIDIA GPU, and the
+[NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html)
+to be installed. Then you can start the docker container with:
 
 ```bash
 docker build -t ar4_ros_driver .
-rocker --ssh --x11 --volume $(pwd):/ar4_ws/src/ar4_ros_driver -- ar4_ros_driver bash
-# Feel free to adjust the volume mounting based on your project structure
+./run_in_docker.sh
 ```
 
 ## Usage
@@ -143,7 +143,7 @@ ros2 launch ar_moveit_config ar_moveit.launch.py
 
 Available Launch Arguments:
 
-- `ar_model`: The model of the AR4. Options are `mk1`, `mk2`, or `mk3`. Defaults to `mk3`.
+- `ar_model`: The model of the AR4. Options are `ar4` (which includes MK2) or `ar4_mk3`. Defaults to `ar4`.
 - `include_gripper`: Whether to include the servo gripper. Defaults to:
   `include_gripper:=True`.
 - `use_sim_time`: Make Moveit use simulation time. Should only be enabled when

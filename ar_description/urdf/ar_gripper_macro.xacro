@@ -28,6 +28,8 @@
         <inertia ixx="0.00002375" ixy="0.00000002" ixz="-0.00000017" iyy="0.00004082" iyz="-0.00000029" izz="0.00004254"/>
       </inertial>
     </link>
+
+
     <link name="gripper_jaw1_link">
       <visual>
         <geometry>
@@ -48,6 +50,8 @@
         <inertia ixx="0.00000123" ixy="-0.00000004" ixz="0.00000012" iyy="0.00000115" iyz="0.00000016" izz="0.00000102"/>
       </inertial>
     </link>
+
+    
     <link name="gripper_jaw2_link">
       <visual>
         <geometry>

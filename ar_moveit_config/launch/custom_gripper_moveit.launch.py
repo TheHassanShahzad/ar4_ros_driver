@@ -90,7 +90,7 @@ def generate_launch_description():
         PathJoinSubstitution([FindExecutable(name="xacro")]),
         " ",
         PathJoinSubstitution(
-            [FindPackageShare("ar_description"), "urdf", "ar.urdf.xacro"]),
+            [FindPackageShare("ar_description"), "urdf", "custom_gripper_main.urdf.xacro"]),
         " ",
         "ar_model:=",
         ar_model_config,

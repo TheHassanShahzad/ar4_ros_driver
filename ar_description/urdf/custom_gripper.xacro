@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<robot name="gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="ar_gripper" params="parent">
+
+    <joint name="gripper_base_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="3.1415926 0.0 0.0"/>
+      <parent link="${parent}"/>
+      <child link="gripper_base_link"/>
+    </joint>
+
+    <link name="gripper_base_link">
+      <inertial>
+        <origin xyz="0.0023458559811001794 0.005741468367557181 -0.023747939953084603" rpy="0 0 0"/>
+        <mass value="0.4314487172538147"/>
+        <inertia ixx="0.000183" iyy="0.000342" izz="0.000259" ixy="-3.2e-05" iyz="1.8e-05" ixz="4.3e-05"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find ar_description)/meshes/custom_gripper/base_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="">
+          <color rgba="1 1 0 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find ar_description)/meshes/custom_gripper/base_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="right_gripper">
+      <inertial>
+        <origin xyz="0.016547314639781804 5.6788901515353275e-18 -0.01756777493606139" rpy="0 0 0"/>
+        <mass value="0.12277399999999998"/>
+        <inertia ixx="2.1e-05" iyy="2.3e-05" izz="1.1e-05" ixy="0.0" iyz="-0.0" ixz="6e-06"/>
+      </inertial>
+      <visual>
+        <origin xyz="0.052 -0.0 0.061" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find ar_description)/meshes/custom_gripper/right_gripper.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="">
+          <color rgba="1 1 0 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.052 -0.0 0.061" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find ar_description)/meshes/custom_gripper/right_gripper.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="left_gripper">
+      <inertial>
+        <origin xyz="-0.016547314516228415 7.950446212149488e-18 -0.01756777493606136" rpy="0 0 0"/>
+        <mass value="0.12277399999999954"/>
+        <inertia ixx="2.1e-05" iyy="2.3e-05" izz="1.1e-05" ixy="0.0" iyz="0.0" ixz="-6e-06"/>
+      </inertial>
+      <visual>
+        <origin xyz="-0.052 -0.0 0.061" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find ar_description)/meshes/custom_gripper/left_gripper.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="">
+          <color rgba="1 1 0 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="-0.052 -0.0 0.061" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find ar_description)/meshes/custom_gripper/left_gripper.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="gripper_jaw1_joint" type="prismatic">
+      <origin xyz="-0.052 0.0 -0.061" rpy="0 0 0"/>
+      <parent link="gripper_base_link"/>
+      <child link="right_gripper"/>
+      <axis xyz="1 0 0"/>
+      <limit upper="0.024" lower="0.0" effort="1" velocity="0.1"/>
+    </joint>
+
+    <joint name="gripper_jaw2_joint" type="prismatic">
+      <origin xyz="0.052 0.0 -0.061" rpy="0 0 0"/>
+      <parent link="gripper_base_link"/>
+      <child link="left_gripper"/>
+      <axis xyz="-1 0 0"/>
+      <limit upper="0.024" lower="0.0" effort="1" velocity="0.1"/>
+      <mimic joint="gripper_jaw1_joint" multiplier="1" offset="0"/>
+
+    </joint>
+  </xacro:macro>
+</robot>
